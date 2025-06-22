@@ -1,0 +1,6 @@
+--az memory esfetade mofid mishavad Aya
+SELECT CAST((SELECT cntr_value FROM sys.dm_os_performance_counters
+WHERE counter_name = 'Buffer cache hit ratio') AS DECIMAL(8,2))
+/
+(SELECT cntr_value FROM sys.dm_os_performance_counters
+WHERE counter_name = 'Buffer cache hit ratio base')*100   

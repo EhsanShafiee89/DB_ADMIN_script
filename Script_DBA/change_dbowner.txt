@@ -1,0 +1,4 @@
+ALTER DATABASE ssisdb SET TRUSTWORTHY ON
+
+EXEC sp_changedbowner 'sa'
+

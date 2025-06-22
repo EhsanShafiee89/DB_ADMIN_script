@@ -1,0 +1,14 @@
+  SELECT 
+  req.dop,percent_complete,wait_time,con.session_id,ses.login_name,ses.[host_name],DB_NAME(req.database_id) [Database],req.status,req.command,ses.program_name,req.blocking_session_id
+	,con.client_net_address,req.cpu_time,ses.memory_usage,
+	req.reads,ses.writes,st.text 
+	FROM sys.dm_exec_connections con 
+	  INNER JOIN sys.dm_exec_sessions ses
+	   ON con.session_id=ses.session_id
+	  INNER JOIN sys.dm_exec_requests req
+	  ON ses.session_id = req.session_id
+	  CROSS APPLY sys.dm_exec_sql_text(req.sql_handle) st
+
+	  --SELECT * FROM sys.dm_exec_session_wait_stats where session_id=59
+	  --select * from sys.dm_os_waiting_tasks
+	  --select * from sys.dm_os_wait_stats
